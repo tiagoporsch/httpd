@@ -162,6 +162,10 @@ int main(int argc, char** argv) {
 	int port = 1104;
 	for (int i = 1; i < argc; i++) {
 		if (!strcmp(argv[i], "-d") || !strcmp(argv[i], "--directory")) {
+			if (i == argc - 1) {
+				fprintf(stderr, "Option %s needs an argument\n", argv[i]);
+				exit(EXIT_FAILURE);
+			}
 			if (chdir(argv[++i]) == -1) {
 				perror("chdir");
 				exit(EXIT_FAILURE);
@@ -176,6 +180,10 @@ int main(int argc, char** argv) {
 			printf("\n");
 			exit(EXIT_SUCCESS);
 		} else if (!strcmp(argv[i], "-p") || !strcmp(argv[i], "--port")) {
+			if (i == argc - 1) {
+				fprintf(stderr, "Option %s needs an argument\n", argv[i]);
+				exit(EXIT_FAILURE);
+			}
 			port = atoi(argv[++i]);
 			if (port == 0) {
 				fprintf(stderr, "Invalid port number '%s'\n", argv[i]);
